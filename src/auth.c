@@ -2,31 +2,55 @@
 
 const char *USERS = "../data/users.txt";
 
+
+// Function to get a single character input on non-Windows systems
+#ifndef _WIN32
+char getch() {
+    char ch;
+    struct termios oldt, newt;
+    
+    // Save terminal settings
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    
+    // Disable echoing and buffering
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    
+    // Read character
+    ch = getchar();
+    
+    // Restore terminal settings
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return ch;
+}
+#endif
+
 void loginMenu(char a[50], char pass[50])
 {
     int i = 0;
     char ch;
 
-    system("clear");
-    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t User Login:");
+    clearScreen();
+    printf("\n\n\n\t\tBank Management System\n\t\tUser Login\n\n\n\t\tEnter Username:");
     scanf("%s", a);
 
-    printf("\n\n\n\n\n\t\t\t\tEnter the password to login:");
+    printf("\n\t\tEnter the password to login:");
     
     while (1) {
-        ch = getch();
+        ch = getch();  // Cross-platform getch
         
-        if (ch == 13 || ch == 10) { // Enter key
-            pass[i] = '\0';
+        if (ch == 13 || ch == 10) { // Enter key (carriage return or newline)
+            pass[i] = '\0';  // Null-terminate the password string
             break;
         } else if (ch == 127 || ch == 8) { // Backspace
             if (i > 0) {
                 i--;
-                printf("\b \b");
+                printf("\b \b");  // Move the cursor back, erase the '*', and move the cursor back again
             }
         } else {
-            pass[i++] = ch;
-            printf("*");
+            pass[i++] = ch;  // Store the character in the password array
+            printf("*");  // Display '*' to mask the input
         }
     }
 }
