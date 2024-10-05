@@ -39,7 +39,7 @@ void stayOrReturn(int notGood, void f(struct User u), struct User u)
     int option;
     if (notGood == 0)
     {
-        system("clear");
+        clearScreen();
         printf("\n✖ Record not found!!\n");
     invalid:
         printf("\nEnter 0 to try again, 1 to return to main menu and 2 to exit:");
@@ -63,12 +63,12 @@ void stayOrReturn(int notGood, void f(struct User u), struct User u)
     }
     if (option == 1)
     {
-        system("clear");
+        clearScreen();
         mainMenu(u);
     }
     else
     {
-        system("clear");
+        clearScreen();
         exit(1);
     }
 }
@@ -80,7 +80,7 @@ void success(struct User u)
 invalid:
     printf("Enter 1 to go to the main menu and 0 to exit!\n");
     scanf("%d", &option);
-    system("clear");
+    clearScreen();
     if (option == 1)
     {
         mainMenu(u);
@@ -104,7 +104,7 @@ void createNewAcc(struct User u)
     FILE *pf = fopen(RECORDS, "a+");
 
 noAccount:
-    system("clear");
+    clearScreen();
     printf("\t\t\t===== New record =====\n");
 
     printf("\nEnter today's date(mm/dd/yyyy):");
