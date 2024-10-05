@@ -118,16 +118,13 @@ const char *getPassword(struct User u)
 }
 
 
+/*
 #ifdef _WIN32
 int getch(void)
 {
     return _getch();
 }
 
-void clearScreen(void)
-{
-    system("cls");
-}
 #else
 int getch(void)
 {
@@ -142,8 +139,6 @@ int getch(void)
     return ch;
 }
 
-void clearScreen(void)
-{
-    system("clear");
-}
 #endif
+*/
+
