@@ -24,6 +24,7 @@ void mainMenu(struct User u)
     printf("\n\t\t[6]- Remove existing account\n");
     printf("\n\t\t[7]- Transfer ownership\n");
     printf("\n\t\t[8]- Exit\n");
+    printf("\n\t\tEnter Your Choice: ");
     scanf("%d", &option);
 
     switch (option)
@@ -50,6 +51,7 @@ void mainMenu(struct User u)
         transferOwner(u);
         break;
     case 8:
+        printf("\n\n\nThank You. Bank on us again \n");
         exit(1);
         break;
     default:
@@ -61,12 +63,13 @@ void initMenu(struct User *u)
 {
     int r = 0;
     int option;
-    system("clear");
-    printf("\n\n\t\t======= ATM =======\n");
+    clearScreen();
+    printf("\n\n\t\t======= ATM2 =======\n");
     printf("\n\t\t-->> Feel free to login / register :\n");
     printf("\n\t\t[1]- login\n");
     printf("\n\t\t[2]- register\n");
     printf("\n\t\t[3]- exit\n");
+    printf("\n\t\tEnter Your Choice: ");
     while (!r)
     {
         scanf("%d", &option);
@@ -76,12 +79,13 @@ void initMenu(struct User *u)
             loginMenu(u->name, u->password);
             if (strcmp(u->password, getPassword(*u)) == 0)
             {
-                printf("\n\nPassword Match!");
+                printf("\n\n\t\tPassword Match!");
                 r = 1;
             }
             else
             {
-                printf("\nWrong password!! or User Name\n");
+                printf("\n\t\tWrong password!! or User Name\n Retry Login \n");
+                exit(1);
             }
             break;
         case 2:
@@ -92,7 +96,8 @@ void initMenu(struct User *u)
             exit(1);
             break;
         default:
-            printf("Insert a valid operation!\n");
+            printf("\n\t\tInsert a valid operation! Bye\n");
+            exit(1);
         }
     }
 }
