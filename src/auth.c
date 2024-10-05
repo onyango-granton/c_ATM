@@ -62,29 +62,34 @@ void registerMenu(char a[50], char pass[50])
     int id = 0;
 
     system("clear");
-    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t User Registration:");
+    printf("\n\n\n\t\tBank Management System\n\t\tUser Registration\n\n\n\t\tRegister Username:");
     scanf("%s", a);
 
-    printf("\n\n\n\n\n\t\t\t\tEnter the password:");
+    printf("\n\t\tRegister password:");
     scanf("%s", pass);
 
     fp = fopen(USERS, "a+");
 
     if (fp == NULL)
     {
-        printf("Error opening file\n");
+        printf("\n\t\tError opening file\n");
         exit(1);
     }
 
     while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) != EOF)
     {
         id = u.id;
+        printf("%d\n",u.id);
+        if (strcmp(a, u.name) == 0){
+            printf("\n\t\tUser Already Exists\n");
+            exit(1);
+        }
     }
 
     fprintf(fp, "%d %s %s\n", id + 1, a, pass);
     fclose(fp);
 
-    printf("\n\nUser registered successfully!\n");
+    printf("\n\n\n\t\tUser registered successfully!\n");
 }
 
 const char *getPassword(struct User u)
