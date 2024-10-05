@@ -99,7 +99,7 @@ const char *getPassword(struct User u)
 
     if ((fp = fopen("../data/users.txt", "r")) == NULL)
     {
-        printf("Error! opening file");
+        printf("\n\t\tError! opening file");
         exit(1);
     }
 
