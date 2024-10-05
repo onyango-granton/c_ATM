@@ -1,9 +1,19 @@
 #include "header.h"
 
+#ifdef _WIN32
+void clearScreen(){
+    system("cls");
+}
+#else
+void clearScreen(){
+    system("clear");
+}
+#endif
+
 void mainMenu(struct User u)
 {
     int option;
-    system("clear");
+    clearScreen();
     printf("\n\n\t\t======= ATM =======\n\n");
     printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
     printf("\n\t\t[1]- Create a new account\n");
