@@ -61,3 +61,11 @@ This Bank Management System is a console-based application written in C. It prov
 3. Once logged in, you'll see the main menu with various banking operations.
 4. Choose the operation you want to perform by entering the corresponding number.
 5. Follow the on-screen prompts to complete each operation.
+
+## File Structure
+- `src/main.c`: Contains the main function and menu logic
+- `src/auth.c`: Handles user authentication (login/register)
+- `srcsystem.c`: Implements banking operations
+- `src/header.h`: Header file with structure definitions and function prototypes
+- `data/users.txt`: Stores user login information
+- `data/records.txt`: Stores account records
