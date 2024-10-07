@@ -72,3 +72,9 @@ This Bank Management System is a console-based application written in C. It prov
 
 ## Security Note
 This system is for educational purposes only. In a real-world scenario, additional security measures would be necessary, such as encryption for sensitive data and secure password handling.
+
+## Contributing
+Feel free to fork this project and submit pull requests with any enhancements.
+
+## License
+This project is open source and available under the [LICENSE](LICENSE)
