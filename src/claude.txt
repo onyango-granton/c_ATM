@@ -109,3 +109,10 @@ Bank Management System
                 Enter the password to login:
                 Wrong password!! or User Name
  Retry Login
+
+
+
+     scanf("%49s", a);
+    while (getchar() != '\n'); // Clear input buffer
+
+    printf("\n\t\tEnter the password to login: ");
