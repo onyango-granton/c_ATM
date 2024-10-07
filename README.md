@@ -69,3 +69,6 @@ This Bank Management System is a console-based application written in C. It prov
 - `src/header.h`: Header file with structure definitions and function prototypes
 - `data/users.txt`: Stores user login information
 - `data/records.txt`: Stores account records
+
+## Security Note
+This system is for educational purposes only. In a real-world scenario, additional security measures would be necessary, such as encryption for sensitive data and secure password handling.
