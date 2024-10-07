@@ -36,3 +36,21 @@ This Bank Management System is a console-based application written in C. It prov
    ```bash
    ./bank_system
    ```
+
+### On Windows:
+1. Clone the repo
+   ```bash
+   git clone https://github.com/onyango-granton/c_ATM.git
+   ```
+2. Open a terminal in the project directory.
+   ```bash
+   cd c_ATM
+   ```
+3. Compile the program using GCC (ensure MinGW is installed):
+   ```bash
+   gcc main.c auth.c system.c -o bank_system.exe 
+   ```
+4. Run the program:
+   ```bash
+   bank_system.exe
+   ```
