@@ -1,0 +1,111 @@
+Hello I have this bit of code in c
+void initMenu(struct User *u)
+{
+int r = 0;
+int option;
+clearScreen();
+printf("\n\n\t\t======= ATM2 =======\n");
+printf("\n\t\t-->> Feel free to login / register :\n");
+printf("\n\t\t[1]- login\n");
+printf("\n\t\t[2]- register\n");
+printf("\n\t\t[3]- exit\n");
+printf("\n\t\tEnter Your Choice: ");
+while (!r)
+ {
+scanf("%d", &option);
+switch (option)
+ {
+case 1:
+loginMenu(u->name, u->password);
+if (strcmp(u->password, getPassword(*u)) == 0)
+ {
+printf("\n\n\t\tPassword Match!");
+ r = 1;
+ }
+else
+ {
+printf("\n\t\tWrong password!! or User Name\n Retry Login \n");
+exit(1);
+ }
+break;
+case 2:
+registerMenu(u->name, u->password);
+ r = 1;
+break;
+case 3:
+exit(1);
+break;
+default:
+printf("\n\t\tInsert a valid operation! Bye\n");
+exit(1);
+ }
+ }
+}
+void loginMenu(char a[50], char pass[50])
+{
+int i = 0;
+char ch;
+clearScreen();
+printf("\n\n\n\t\tBank Management System\n\t\tUser Login\n\n\n\t\tEnter Username:");
+scanf("%s", a);
+printf("\n\t\tEnter the password to login:");
+while (1) {
+ ch = getch(); // Cross-platform getch
+if (ch == 13 || ch == 10) { // Enter key (carriage return or newline)
+pass[i] = '\0'; // Null-terminate the password string
+break;
+ } else if (ch == 127 || ch == 8) { // Backspace
+if (i > 0) {
+ i--;
+printf("\b \b"); // Move the cursor back, erase the '*', and move the cursor back again
+ }
+ } else {
+pass[i++] = ch; // Store the character in the password array
+printf("*"); // Display '*' to mask the input
+ }
+ }
+}
+const char *getPassword(struct User u)
+{
+ FILE *fp;
+struct User userChecker;
+if ((fp = fopen("../data/users.txt", "r")) == NULL)
+ {
+printf("\n\t\tError! opening file");
+exit(1);
+ }
+while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
+ {
+if (strcmp(userChecker.name, u.name) == 0)
+ {
+fclose(fp);
+char *buff = userChecker.password;
+return buff;
+ }
+ }
+fclose(fp);
+return "no user found";
+}
+#ifndef _WIN32
+char getch() {
+char ch;
+struct termios oldt, newt;
+// Save terminal settings
+tcgetattr(STDIN_FILENO, &oldt);
+ newt = oldt;
+// Disable echoing and buffering
+newt.c_lflag &= ~(ICANON | ECHO);
+tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+// Read character
+ ch = getchar();
+// Restore terminal settings
+tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+return ch;
+}
+problem is on llinux maxhine while login in you get to only input the username the password fileld is more what enter is pressed auto so you get
+Bank Management System
+                User Login
+                Enter Username:khamisi
+                Enter the password to login:
+                Wrong password!! or User Name
+ Retry Login
