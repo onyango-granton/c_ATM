@@ -12,3 +12,9 @@ This Bank Management System is a console-based application written in C. It prov
 - Make Transactions (Deposit/Withdraw)
 - Remove Existing Account
 - Transfer Account Ownership
+
+## System Requirements
+- C Compiler (GCC recommended)
+- Windows or Linux Operating System
+
+## Setup and Compilation
