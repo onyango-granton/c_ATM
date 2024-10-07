@@ -54,3 +54,10 @@ This Bank Management System is a console-based application written in C. It prov
    ```bash
    bank_system.exe
    ```
+
+## Usage
+1. When you run the program, you'll be presented with a login/register menu.
+2. If you're a new user, choose the register option to create an account.
+3. Once logged in, you'll see the main menu with various banking operations.
+4. Choose the operation you want to perform by entering the corresponding number.
+5. Follow the on-screen prompts to complete each operation.
