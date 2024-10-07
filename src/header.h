@@ -54,7 +54,7 @@ void mainMenu(struct User u);
 void checkAllAccounts(struct User u);
 
 // Utility functions
-int getch(void);
+char getch(void);
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
 void success(struct User u);
