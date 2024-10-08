@@ -34,8 +34,9 @@ void loginMenu(char a[50], char pass[50])
     clearScreen();
     printf("\n\n\n\t\tBank Management System\n\t\tUser Login\n\n\n\t\tEnter Username:");
     scanf("%s", a);
+    while (getchar() != '\n'); // Clear input buffer
 
-    printf("\n\t\tEnter the password to login:");
+    printf("\n\t\tEnter the password to login: ");
     
     while (1) {
         ch = getch();  // Cross-platform getch
