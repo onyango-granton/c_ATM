@@ -41,6 +41,7 @@ struct User
 // Authentication functions
 // In header.h
 struct User loginMenu(char name[50], char password[50]);
+struct User registerMenu(char name[50], char password[50]);
 const char *getPassword(struct User u);
 
 // System functions
