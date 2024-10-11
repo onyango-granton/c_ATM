@@ -167,6 +167,7 @@ void createNewAcc(struct User u)
     struct Record cr;
     char userName[50];
     FILE *pf = fopen(RECORDS, "a+");
+    int id = 1; // Initialize id to 1
 
 noAccount:
     clearScreen();
@@ -177,14 +178,24 @@ noAccount:
     printf("\nEnter the account number:");
     scanf("%d", &r.accountNbr);
 
+    // Find the highest existing id
+    rewind(pf); // Move file pointer to the beginning of the file
     while (getAccountFromFile(pf, userName, &cr))
     {
-        if (strcmp(userName, u.name) == 0 && cr.accountNbr == r.accountNbr)
+        if (cr.id >= id)
         {
-            printf("✖ This Account already exists for this user\n\n");
+            id = cr.id + 1; // Set id to one more than the highest existing id
+        }
+        if (cr.accountNbr == r.accountNbr)
+        {
+            printf("✖ This Account number already exists\n\n");
             goto noAccount;
         }
     }
+    
+    r.id = id; // Set the new account's id
+    r.userId = u.id; // Use the correct user ID from the User struct
+
     printf("\nEnter the country:");
     scanf("%s", r.country);
     printf("\nEnter the phone number:");
@@ -194,7 +205,12 @@ noAccount:
     printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice:");
     scanf("%s", r.accountType);
 
-    saveAccountToFile(pf, u, r);
+    verifyAndCorrectUserIds();
+
+    fprintf(pf, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+            r.id, r.userId, u.name, r.accountNbr,
+            r.deposit.month, r.deposit.day, r.deposit.year,
+            r.country, r.phone, r.amount, r.accountType);
 
     fclose(pf);
     success(u);
