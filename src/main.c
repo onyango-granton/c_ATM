@@ -76,28 +76,34 @@ void initMenu(struct User *u)
         switch (option)
         {
         case 1:
-            loginMenu(u->name, u->password);
-            if (strcmp(u->password, getPassword(*u)) == 0)
+            *u = loginMenu(u->name, u->password);  // Update this line
+            if (u->id != -1)  // Check if login was successful
             {
-                printf("\n\n\t\tPassword Match!");
+                printf("\n\n\t\tLogin successful!");
                 r = 1;
             }
             else
             {
-                printf("\n\t\tWrong password!! or User Name\n Retry Login \n");
-                exit(1);
+                printf("\n\t\tWrong password or User Name\n Retry Login \n");
             }
             break;
         case 2:
-            registerMenu(u->name, u->password);
-            r = 1;
+            *u = registerMenu(u->name, u->password);  // Update this line
+            if (u->id != -1)  // Check if registration was successful
+            {
+                printf("\n\n\t\tRegistration successful!");
+                r = 1;
+            }
+            else
+            {
+                printf("\n\t\tRegistration failed. Please try again.\n");
+            }
             break;
         case 3:
             exit(1);
             break;
         default:
-            printf("\n\t\tInsert a valid operation! Bye\n");
-            exit(1);
+            printf("\n\t\tInsert a valid operation!\n");
         }
     }
 }
