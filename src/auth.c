@@ -57,43 +57,43 @@ struct User loginMenu(char name[50], char password[50])
     return u;
 }
 
-void registerMenu(char a[50], char pass[50])
+struct User registerMenu(char name[50], char password[50])
 {
+    struct User u = {-1, "", ""};
     FILE *fp;
-    struct User u;
-    int id = 0;
+    int id = 1;
 
-    system("clear");
-    printf("\n\n\n\t\tBank Management System\n\t\tUser Registration\n\n\n\t\tRegister Username:");
-    scanf("%s", a);
-
-    printf("\n\t\tRegister password:");
-    scanf("%s", pass);
-
-    fp = fopen(USERS, "a+");
-
+    fp = fopen("../data/users.txt", "a+");
     if (fp == NULL)
     {
-        printf("\n\t\tError opening file\n");
-        exit(1);
+        printf("Error opening file\n");
+        return u;
     }
 
-    while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) != EOF)
+    printf("\n\n\t\t\t\tRegister New Account\n\n");
+    printf("\n\n\t\t\t\tEnter Username: ");
+    scanf("%s", name);
+    printf("\n\n\t\t\t\tEnter Password: ");
+    scanf("%s", password);
+
+    // Find the highest existing id
+    while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) == 3)
     {
-        id = u.id;
-        printf("%d\n",u.id);
-        if (strcmp(a, u.name) == 0){
-            printf("\n\t\tUser Already Exists\n");
-            exit(1);
+        if (u.id >= id)
+        {
+            id = u.id + 1;
         }
     }
 
-    fprintf(fp, "%d %s %s\n", id + 1, a, pass);
+    u.id = id;
+    strcpy(u.name, name);
+    strcpy(u.password, password);
+
+    fprintf(fp, "%d %s %s\n", u.id, u.name, u.password);
     fclose(fp);
 
-    printf("\n\n\n\t\tUser registered successfully!\n");
+    return u;
 }
-
 const char *getPassword(struct User u)
 {
     FILE *fp;
