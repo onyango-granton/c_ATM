@@ -1,1 +1,4 @@
-delete creation of temp_records.txt
+Users can only edit their accounts
+Transfer must be to exsisting user
+Fixed accounts are locked
+Menu consistency
