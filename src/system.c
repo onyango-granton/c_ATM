@@ -222,6 +222,7 @@ void updateAccount(struct User u)
     FILE *pf, *tempFile;
     struct Record r;
     char userName[50];
+    int found = 0;
 
     pf = fopen(RECORDS, "r");
     tempFile = fopen("temp.txt", "w");
@@ -231,8 +232,9 @@ void updateAccount(struct User u)
 
     while (getAccountFromFile(pf, userName, &r))
     {
-        if (strcmp(userName, u.name) == 0 && r.accountNbr == accountNbr)
+        if (r.accountNbr == accountNbr)
         {
+            found = 1;
             printf("\nWhat do you want to update?");
             printf("\n1. Country");
             printf("\n2. Phone");
@@ -256,19 +258,30 @@ void updateAccount(struct User u)
                 remove("temp.txt");
                 return;
             }
+            printf("\nAccount updated successfully!");
         }
-        saveAccountToFile(tempFile, u, r);
+        fprintf(tempFile, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+                r.id, r.userId, userName, r.accountNbr,
+                r.deposit.month, r.deposit.day, r.deposit.year,
+                r.country, r.phone, r.amount, r.accountType);
     }
 
     fclose(pf);
     fclose(tempFile);
 
-    remove(RECORDS);
-    rename("temp.txt", RECORDS);
+    if (found)
+    {
+        remove(RECORDS);
+        rename("temp.txt", RECORDS);
+    }
+    else
+    {
+        remove("temp.txt");
+        printf("\nAccount not found!");
+    }
 
-    success(u);
+    stayOrReturn(found, updateAccount, u);
 }
-
 
 void checkAllAccounts(struct User u)
 {
