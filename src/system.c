@@ -204,7 +204,7 @@ noAccount:
     printf("\n\t\tEnter amount to deposit: $");
     scanf("%lf", &r.amount);
     choosingAccounts:
-    printf("\n\t\tChoose the type of account:\n\t\t\t-> saving\n\t\t\t-> current\n\t\t\t-> fixed01(for 1 year)\n\t\t\t-> fixed02(for 2 years)\n\t\t\t-> fixed03(for 3 years)\n\n\t\t\tnter your choice:");
+    printf("\n\t\tChoose the type of account:\n\t\t\t-> saving\n\t\t\t-> current\n\t\t\t-> fixed01(for 1 year)\n\t\t\t-> fixed02(for 2 years)\n\t\t\t-> fixed03(for 3 years)\n\n\t\t\tEnter your choice:");
     scanf("%s", r.accountType);
 
     // printf("%s",r.accountType);
@@ -222,10 +222,10 @@ noAccount:
 
     // verifyAndCorrectUserIds();
 
-    printf("%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
-            r.id, r.userId, u.name, r.accountNbr,
-            r.deposit.month, r.deposit.day, r.deposit.year,
-            r.country, r.phone, r.amount, r.accountType);
+    // printf("%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+    //         r.id, r.userId, u.name, r.accountNbr,
+    //         r.deposit.month, r.deposit.day, r.deposit.year,
+    //         r.country, r.phone, r.amount, r.accountType);
 
     fprintf(pf, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
             r.id, r.userId, u.name, r.accountNbr,
