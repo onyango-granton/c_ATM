@@ -387,7 +387,6 @@ void makeTransaction(struct User u)
     {
         remove(RECORDS);
         rename("temp.txt", RECORDS);
-        printf("\nTransaction successful!");
     }
     else
     {
@@ -414,13 +413,16 @@ void removeAccount(struct User u)
 
     while (getAccountFromFile(pf, userName, &r))
     {
-        if (strcmp(userName, u.name) == 0 && r.accountNbr == accountNbr)
+        if (r.accountNbr == accountNbr)
         {
             found = 1;
             printf("\nAccount with number %d will be removed.", accountNbr);
             continue;
         }
-        saveAccountToFile(tempFile, u, r);
+        fprintf(tempFile, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+                r.id, r.userId, userName, r.accountNbr,
+                r.deposit.month, r.deposit.day, r.deposit.year,
+                r.country, r.phone, r.amount, r.accountType);
     }
 
     fclose(pf);
@@ -459,15 +461,31 @@ void transferOwner(struct User u)
     printf("\nEnter new owner's name: ");
     scanf("%s", newOwner);
 
-    while (getAccountFromFile(pf, userName, &r))
-    {
-        if (strcmp(userName, u.name) == 0 && r.accountNbr == accountNbr)
-        {
+    while (getAccountFromFile(pf, userName, &r)) {
+        if (r.accountNbr == accountNbr) {
             found = 1;
             printf("\nTransferring account %d to %s", accountNbr, newOwner);
-            strcpy(userName, newOwner);
+            strncpy(userName, newOwner, sizeof(userName) - 1);
+            userName[sizeof(userName) - 1] = '\0';  // Ensure null-termination
         }
-        saveAccountToFile(tempFile, u, r);
+        
+        // Update user ID to match the new owner's name
+        if (strcmp(userName, newOwner) == 0) {
+            r.userId = u.id;
+        }
+        
+        fprintf(tempFile, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+                r.id,
+                r.userId,
+                userName,
+                r.accountNbr,
+                r.deposit.month,
+                r.deposit.day,
+                r.deposit.year,
+                r.country,
+                r.phone,
+                r.amount,
+                r.accountType);
     }
 
     fclose(pf);
@@ -487,7 +505,6 @@ void transferOwner(struct User u)
 
     stayOrReturn(found, transferOwner, u);
 }
-
 
 
 void checkAccountDetails(struct User u)
