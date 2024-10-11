@@ -54,6 +54,8 @@ void transferOwner(struct User u);
 void mainMenu(struct User u);
 void checkAllAccounts(struct User u);
 
+int main();
+
 // Utility functions
 #ifndef _WIN32
 char getch(void);
