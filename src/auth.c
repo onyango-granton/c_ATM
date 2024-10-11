@@ -62,6 +62,7 @@ struct User registerMenu(char name[50], char password[50])
     struct User u = {-1, "", ""};
     FILE *fp;
     int id = 1;
+    int gotoLogin;
 
     fp = fopen("../data/users.txt", "a+");
     if (fp == NULL)
@@ -79,6 +80,16 @@ struct User registerMenu(char name[50], char password[50])
     // Find the highest existing id
     while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) == 3)
     {
+        if (strcmp(u.name, name) == 0){
+           printf("\n\t\tUsername already exists. Press [1] To Login (or) [AnyKey*] To Exit: "); 
+           scanf("%d",&gotoLogin);
+           if (gotoLogin == 1){
+                main();
+           } else {
+                    printf("\n\n\nThank You. Bank on us again \n");
+                    exit(1);
+                }
+        }
         if (u.id >= id)
         {
             id = u.id + 1;
