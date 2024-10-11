@@ -4,7 +4,7 @@ const char *RECORDS = "../data/records.txt";
 
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 {
-    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
+    int result = fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
                   &r->id,
                   &r->userId,
                   name,
@@ -15,7 +15,20 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
                   r->country,
                   &r->phone,
                   &r->amount,
-                  r->accountType) != EOF;
+                  r->accountType);
+    
+    if (result == EOF) return 0;
+    
+    // Basic data validation
+    /*if (r->deposit.month < 1 || r->deposit.month > 12 ||
+        r->deposit.day < 1 || r->deposit.day > 31 ||
+        r->deposit.year < 1900 || r->deposit.year > 2100 ||
+        r->amount < 0) {
+        printf("Warning: Invalid data detected for account %d\n", r->accountNbr);
+        return 0;
+    }*/
+    
+    return 1;
 }
 
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
