@@ -335,7 +335,7 @@ void makeTransaction(struct User u)
 
     while (getAccountFromFile(pf, userName, &r))
     {
-        if (strcmp(userName, u.name) == 0 && r.accountNbr == accountNbr)
+        if (r.accountNbr == accountNbr)
         {
             found = 1;
             printf("\n1. Deposit");
@@ -372,8 +372,12 @@ void makeTransaction(struct User u)
                 stayOrReturn(1, makeTransaction, u);
                 return;
             }
+            printf("\nTransaction successful!");
         }
-        saveAccountToFile(tempFile, u, r);
+        fprintf(tempFile, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+                r.id, r.userId, userName, r.accountNbr,
+                r.deposit.month, r.deposit.day, r.deposit.year,
+                r.country, r.phone, r.amount, r.accountType);
     }
 
     fclose(pf);
