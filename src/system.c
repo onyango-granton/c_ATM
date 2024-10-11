@@ -168,14 +168,15 @@ void createNewAcc(struct User u)
     char userName[50];
     FILE *pf = fopen(RECORDS, "a+");
     int id = 1; // Initialize id to 1
+    int accountType;
 
 noAccount:
     clearScreen();
     printf("\t\t\t===== New record =====\n");
 
-    printf("\nEnter today's date(mm/dd/yyyy):");
+    printf("\n\t\tEnter today's date(mm/dd/yyyy):");
     scanf("%d/%d/%d", &r.deposit.month, &r.deposit.day, &r.deposit.year);
-    printf("\nEnter the account number:");
+    printf("\n\t\tEnter the account number:");
     scanf("%d", &r.accountNbr);
 
     // Find the highest existing id
@@ -188,7 +189,7 @@ noAccount:
         }
         if (cr.accountNbr == r.accountNbr)
         {
-            printf("✖ This Account number already exists\n\n");
+            printf(":( This Account number already exists\n\n");
             goto noAccount;
         }
     }
@@ -196,16 +197,35 @@ noAccount:
     r.id = id; // Set the new account's id
     r.userId = u.id; // Use the correct user ID from the User struct
 
-    printf("\nEnter the country:");
+    printf("\n\t\tEnter the country:");
     scanf("%s", r.country);
-    printf("\nEnter the phone number:");
+    printf("\n\t\tEnter the phone number:");
     scanf("%d", &r.phone);
-    printf("\nEnter amount to deposit: $");
+    printf("\n\t\tEnter amount to deposit: $");
     scanf("%lf", &r.amount);
-    printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice:");
+    choosingAccounts:
+    printf("\n\t\tChoose the type of account:\n\t\t\t-> saving\n\t\t\t-> current\n\t\t\t-> fixed01(for 1 year)\n\t\t\t-> fixed02(for 2 years)\n\t\t\t-> fixed03(for 3 years)\n\n\t\t\tnter your choice:");
     scanf("%s", r.accountType);
 
-    verifyAndCorrectUserIds();
+    // printf("%s",r.accountType);
+
+    if (!(strcmp(r.accountType,"current") == 0 || strcmp(r.accountType,"saving") == 0 || strcmp(r.accountType,"fixed01") == 0 || strcmp(r.accountType,"fixed02") == 0 || strcmp(r.accountType,"fixed03") == 0) ){
+        printf("Invalid Choice. Press [1] To Reselect (or) [AnyKey*] To Exit");
+        scanf("%d", &accountType);
+        if (accountType == 1){
+            goto choosingAccounts;
+        } else {
+            printf("\n\n\nThank You. Bank on us again \n");
+            exit(1);
+        }
+    }
+
+    // verifyAndCorrectUserIds();
+
+    printf("%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+            r.id, r.userId, u.name, r.accountNbr,
+            r.deposit.month, r.deposit.day, r.deposit.year,
+            r.country, r.phone, r.amount, r.accountType);
 
     fprintf(pf, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
             r.id, r.userId, u.name, r.accountNbr,
