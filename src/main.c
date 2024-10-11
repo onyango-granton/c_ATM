@@ -63,6 +63,7 @@ void initMenu(struct User *u)
 {
     int r = 0;
     int option;
+    int relogin;
     clearScreen();
     printf("\n\n\t\t======= ATM2 =======\n");
     printf("\n\t\t-->> Feel free to login / register :\n");
@@ -74,7 +75,9 @@ void initMenu(struct User *u)
     {
         scanf("%d", &option);
         switch (option)
+        
         {
+            loginloop:
         case 1:
             *u = loginMenu(u->name, u->password);  // Update this line
             if (u->id != -1)  // Check if login was successful
@@ -84,7 +87,14 @@ void initMenu(struct User *u)
             }
             else
             {
-                printf("\n\t\tWrong password or User Name\n Retry Login \n");
+                printf("\n\t\tWrong password or User Name\n\t\tPress [1] Retry Login (or) [AnyKey*] To Exit: ");
+                scanf("%d",&relogin);
+                if (relogin == 1){
+                    goto loginloop;
+                } else {
+                    printf("\n\n\nThank You. Bank on us again \n");
+                    exit(1);
+                }
             }
             break;
         case 2:
@@ -96,7 +106,7 @@ void initMenu(struct User *u)
             }
             else
             {
-                printf("\n\t\tRegistration failed. Please try again.\n");
+                printf("\n\t\tRegistration failed. Please try again.");
             }
             break;
         case 3:
@@ -104,6 +114,8 @@ void initMenu(struct User *u)
             break;
         default:
             printf("\n\t\tInsert a valid operation!\n");
+            printf("\n\n\nThank You. Bank on us again \n");
+            exit(1);
         }
     }
 }
