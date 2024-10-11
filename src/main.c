@@ -110,8 +110,9 @@ void initMenu(struct User *u)
 
 int main()
 {
-    struct User u;
+    struct User u = {-1, "", ""};  // Initialize with invalid ID
     initMenu(&u);
+    printf("Debug: User ID after initMenu: %d\n", u.id);
     mainMenu(u);
     return 0;
 }
