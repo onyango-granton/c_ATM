@@ -31,6 +31,58 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
     return 1;
 }
 
+void verifyAndCorrectUserIds()
+{
+    FILE *recordsFile = fopen(RECORDS, "r");
+    FILE *usersFile = fopen("../data/users.txt", "r");
+    FILE *tempFile = fopen("temp_records.txt", "w");
+    
+    struct Record r;
+    struct User u;
+    char userName[50];
+
+    // Read all users into a hash table or array for quick lookup
+    // This is a simplified example; you'd need to implement a proper data structure
+    struct User users[100];  // Assuming max 100 users
+    int userCount = 0;
+    while (fscanf(usersFile, "%d %s %s", &u.id, u.name, u.password) != EOF) {
+        users[userCount++] = u;
+    }
+
+    while (getAccountFromFile(recordsFile, userName, &r)) {
+        // Find the correct user ID for this username
+        int correctUserId = -1;
+        for (int i = 0; i < userCount; i++) {
+            if (strcmp(users[i].name, userName) == 0) {
+                correctUserId = users[i].id;
+                break;
+            }
+        }
+
+        if (correctUserId != -1 && correctUserId != r.userId) {
+            printf("Correcting user ID for account %d: %d -> %d\n", r.accountNbr, r.userId, correctUserId);
+            r.userId = correctUserId;
+        }
+
+        // Write the (possibly corrected) record to the temp file
+        fprintf(tempFile, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
+                r.id, r.userId, userName, r.accountNbr,
+                r.deposit.month, r.deposit.day, r.deposit.year,
+                r.country, r.phone, r.amount, r.accountType);
+    }
+
+    fclose(recordsFile);
+    fclose(usersFile);
+    fclose(tempFile);
+
+    // Replace the old records file with the corrected one
+    remove(RECORDS);
+    rename("temp_records.txt", RECORDS);
+
+    printf("User ID verification and correction completed.\n");
+}
+
+
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
 {
     fprintf(ptr, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
