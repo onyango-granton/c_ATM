@@ -26,34 +26,35 @@ char getch() {
 }
 #endif
 
-void loginMenu(char a[50], char pass[50])
+struct User loginMenu(char name[50], char password[50])
 {
-    int i = 0;
-    char ch;
+    struct User u = {-1, "", ""};  // Initialize with invalid ID
+    FILE *fp;
+    fp = fopen("../data/users.txt", "r");
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return u;
+    }
 
-    clearScreen();
-    printf("\n\n\n\t\tBank Management System\n\t\tUser Login\n\n\n\t\tEnter Username:");
-    scanf("%s", a);
-    while (getchar() != '\n'); // Clear input buffer
+    printf("\n\n\t\t\t\tAccount Login\n\n");
+    printf("\n\n\t\t\t\tEnter Username: ");
+    scanf("%s", name);
+    printf("\n\n\t\t\t\tEnter Password: ");
+    scanf("%s", password);
 
-    printf("\n\t\tEnter the password to login: ");
-    
-    while (1) {
-        ch = getch();  // Cross-platform getch
-        
-        if (ch == 13 || ch == 10) { // Enter key (carriage return or newline)
-            pass[i] = '\0';  // Null-terminate the password string
-            break;
-        } else if (ch == 127 || ch == 8) { // Backspace
-            if (i > 0) {
-                i--;
-                printf("\b \b");  // Move the cursor back, erase the '*', and move the cursor back again
-            }
-        } else {
-            pass[i++] = ch;  // Store the character in the password array
-            printf("*");  // Display '*' to mask the input
+    while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) == 3)
+    {
+        if (strcmp(name, u.name) == 0 && strcmp(password, u.password) == 0)
+        {
+            fclose(fp);
+            return u;
         }
     }
+
+    fclose(fp);
+    u.id = -1;  // Set ID to -1 if user not found
+    return u;
 }
 
 void registerMenu(char a[50], char pass[50])
