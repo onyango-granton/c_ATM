@@ -1,4 +1,4 @@
-Users can only edit their accounts
-Transfer must be to exsisting user
-Fixed accounts are locked
+Users can only edit their accounts[DONE]
+Transfer must be to exsisting user[DONE]
+Fixed accounts are locked[DONE]
 Menu consistency
