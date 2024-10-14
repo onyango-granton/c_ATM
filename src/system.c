@@ -565,8 +565,9 @@ void checkAccountDetails(struct User u)
             
             if (strcmp(r.accountType, "saving") == 0)
             {
-                float interest = 0.07 * r.amount;
-                printf("\nYearly Interest (7%%): $%.2f", interest);
+                float interest = 0.07 * r.amount / 12;
+                printf("\nYou will get $%.2f as interest on day %d of every month",interest, r.deposit.day);
+                //printf("\nYearly Interest (7%%): $%.2f", interest);
             }
             else if (strncmp(r.accountType, "fixed", 5) == 0)
             {
