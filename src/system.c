@@ -107,7 +107,7 @@ void stayOrReturn(int notGood, void f(struct User u), struct User u)
         clearScreen();
         printf("\n✖ Record not found!!\n");
     invalid:
-        printf("\nEnter 0 to try again, 1 to return to main menu and 2 to exit:");
+        printf("\nEnter [0] to try again, [1] to return to main menu and [2] to exit:");
         scanf("%d", &option);
         if (option == 0)
             f(u);
@@ -123,7 +123,7 @@ void stayOrReturn(int notGood, void f(struct User u), struct User u)
     }
     else
     {
-        printf("\nEnter 1 to go to the main menu and 0 to exit:");
+        printf("\nEnter [1] to go to the main menu and [0] to exit:");
         scanf("%d", &option);
     }
     if (option == 1)
@@ -143,7 +143,7 @@ void success(struct User u)
     int option;
     printf("\n✔ Success!\n\n");
 invalid:
-    printf("Enter 1 to go to the main menu and 0 to exit!\n");
+    printf("Enter [1] To Go to the MainMenu and [0] to exit!\n");
     scanf("%d", &option);
     clearScreen();
     if (option == 1)
@@ -210,7 +210,7 @@ noAccount:
     // printf("%s",r.accountType);
 
     if (!(strcmp(r.accountType,"current") == 0 || strcmp(r.accountType,"saving") == 0 || strcmp(r.accountType,"fixed01") == 0 || strcmp(r.accountType,"fixed02") == 0 || strcmp(r.accountType,"fixed03") == 0) ){
-        printf("Invalid Choice. Press [1] To Reselect (or) [AnyKey*] To Exit");
+        printf("Invalid Choice. Enter [1] To Reselect (or) [AnyKey*] To Exit");
         scanf("%d", &accountType);
         if (accountType == 1){
             goto choosingAccounts;
