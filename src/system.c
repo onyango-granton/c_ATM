@@ -252,7 +252,7 @@ void updateAccount(struct User u)
 
     while (getAccountFromFile(pf, userName, &r))
     {
-        if (r.accountNbr == accountNbr)
+        if (r.accountNbr == accountNbr && strcmp(u.name, userName) == 0)
         {
             found = 1;
             printf("\nWhat do you want to update?");
