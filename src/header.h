@@ -60,7 +60,9 @@ int main();
 #ifdef _WIN32
 int getch(void);
 #endif
+#ifndef _WIN32
 char getch(void);
+#endif
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
 void success(struct User u);
