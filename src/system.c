@@ -569,11 +569,20 @@ void checkAccountDetails(struct User u)
                 printf("\nYou will get $%.2f as interest on day %d of every month",interest, r.deposit.day);
                 //printf("\nYearly Interest (7%%): $%.2f", interest);
             }
-            else if (strncmp(r.accountType, "fixed", 5) == 0)
-            {
-                int years = r.accountType[5] - '0';
-                float interest = (0.04 * years) * r.amount;
-                printf("\nTotal Interest for %d year(s) (4%% per year): $%.2f", years, interest);
+            else if (strcmp(r.accountType, "fixed01") == 0){
+                float interest = 0.04 * 1 * r.amount;
+                printf("\nYou will get $%.2f as interest on %d/%d/%d",interest, r.deposit.day, r.deposit.month, r.deposit.year+1);
+                //printf("\nTotal Interest for 1 year(s) (4%% per year): $%.2f", interest);
+            }
+            else if (strcmp(r.accountType, "fixed02") == 0){
+                float interest = 0.05 * 2 * r.amount;
+                printf("\nYou will get $%.2f as interest on %d/%d/%d",interest, r.deposit.day, r.deposit.month, r.deposit.year+2);
+                //printf("\nTotal Interest for 2 year(s) (4%% per year): $%.2f", interest);
+            }
+            else if (strcmp(r.accountType, "fixed03") == 0){
+                float interest = 0.08 * 3 * r.amount;
+                printf("\nYou will get $%.2f as interest on %d/%d/%d",interest, r.deposit.day, r.deposit.month, r.deposit.year+3);
+                //printf("\nTotal Interest for 3 year(s) (4%% per year): $%.2f", interest);
             }
             
             break;
