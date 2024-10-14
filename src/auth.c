@@ -81,7 +81,7 @@ struct User registerMenu(char name[50], char password[50])
     while (fscanf(fp, "%d %s %s", &u.id, u.name, u.password) == 3)
     {
         if (strcmp(u.name, name) == 0){
-           printf("\n\t\tUsername already exists. Press [1] To Login (or) [AnyKey*] To Exit: "); 
+           printf("\n\t\tUsername already exists. Enter [1] To Login (or) [AnyKey*] To Exit: "); 
            scanf("%d",&gotoLogin);
            if (gotoLogin == 1){
                 main();
