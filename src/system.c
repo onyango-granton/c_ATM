@@ -41,8 +41,6 @@ void verifyAndCorrectUserIds()
     struct User u;
     char userName[50];
 
-    // Read all users into a hash table or array for quick lookup
-    // This is a simplified example; you'd need to implement a proper data structure
     struct User users[100];  // Assuming max 100 users
     int userCount = 0;
     while (fscanf(usersFile, "%d %s %s", &u.id, u.name, u.password) != EOF) {
@@ -219,13 +217,6 @@ noAccount:
             exit(1);
         }
     }
-
-    // verifyAndCorrectUserIds();
-
-    // printf("%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
-    //         r.id, r.userId, u.name, r.accountNbr,
-    //         r.deposit.month, r.deposit.day, r.deposit.year,
-    //         r.country, r.phone, r.amount, r.accountType);
 
     fprintf(pf, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n",
             r.id, r.userId, u.name, r.accountNbr,
