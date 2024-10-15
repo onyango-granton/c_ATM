@@ -131,27 +131,3 @@ const char *getPassword(struct User u)
 }
 
 
-/*
-#ifdef _WIN32
-int getch(void)
-{
-    return _getch();
-}
-
-#else
-int getch(void)
-{
-    struct termios oldattr, newattr;
-    int ch;
-    tcgetattr(STDIN_FILENO, &oldattr);
-    newattr = oldattr;
-    newattr.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-    ch = getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-    return ch;
-}
-
-#endif
-*/
-
